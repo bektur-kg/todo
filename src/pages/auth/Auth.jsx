@@ -1,25 +1,30 @@
 import React, { useState } from 'react'
 import './Auth.scss'
 import { getAuth } from '../../API/index';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 const Register = () => {
   const [email , setEmail] = useState('')
   const [password , setPassword] = useState('')
+  const navigate = useNavigate()
 
   const handleAuth = (e) => {
     e.preventDefault()
-    if(email.value !== '' && password.value !== ''){
+    if(email !== '' && password !== ''){
       getAuth({email , password})
       .then(res => {
-        localStorage.setItem('accessToken', res.accessToken)
-        localStorage.setItem('refreshToken', res.refreshToken)
-        localStorage.setItem('user' , JSON.stringify(res.user))
-        if(res.user.isActivated){
-          localStorage.setItem('isActivated' , res.user.isActivated)
-          window.location.reload()
-        }
+          if(res){
+            localStorage.setItem('accessToken', res.accessToken)
+            localStorage.setItem('refreshToken', res.refreshToken)
+            localStorage.setItem('user' , JSON.stringify(res.user))
+            if(res.user.isActivated){
+              localStorage.setItem('isActivated' , res.user.isActivated)
+            }
+              navigate('/')
+          }
       })
     }
+
+  
   }
 
   return (
@@ -41,7 +46,7 @@ const Register = () => {
         </div>
 
         <div className='link_register'>
-          <Link to='/registration'>Create a new account</Link>
+          <Link to='/auth/register'>Create a new account</Link>
         </div>
       </div>
     </div>

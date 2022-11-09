@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './Header.scss'
 import {GoSignOut} from 'react-icons/go'
 import {MdAdminPanelSettings} from 'react-icons/md'
@@ -12,12 +12,14 @@ const Header = () => {
   const user = localStorage.getItem('accessToken')
   const refreshToken = localStorage.getItem('refreshToken')
   const dropDown = () => setToggle(!toggle)
+  const navigate = useNavigate()
 
   const signOut = () => {
     getOut({refreshToken})
     .then(() => {
       localStorage.clear()
-      window.location.reload()
+      setToggle(!toggle)
+      navigate('/auth/register')
     })
   }
 

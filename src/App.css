@@ -35,3 +35,17 @@ body{
     transform: rotate(360deg);
   }
 }
+
+
+.not-auth{
+  text-align: center;
+  color: white;
+}
+
+.not-auth a{
+  color: white;
+  background: #61dafb;
+  text-decoration: none;
+  padding: 8px 20px;
+  border-radius: 5px;
+}
